@@ -1,0 +1,18 @@
+@ECHO OFF
+setlocal enabledelayedexpansion
+
+for /f "delims=" %%A in ('wmic csproduct get uuid /value ^| find "="') do (
+    for /f "tokens=2 delims==" %%B in ("%%~A") do (
+        set "serialnumber=%%B"
+    )
+)
+
+:: Replace with your actual UUID value
+if "%serialnumber%"=="00000000-0000-0000-0000-000000000000" goto :finish
+echo DEVICE UNAUTHORIZED
+pause
+exit
+
+:finish
+echo ACCESS GRANTED
+pause
